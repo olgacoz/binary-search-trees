@@ -39,6 +39,35 @@ export default class Tree {
     return false;
   }
 
+  insert(value) {
+    // if there is no root node, create one
+    if (!this.root) {
+      this.root = new Node(value);
+      return;
+    }
+
+    let node = this.root;
+    while (true) {
+      if (node.data === value) {
+        return;
+      }
+
+      if (value > node.data) {
+        if (node.right === null) {
+          node.right = new Node(value);
+          return;
+        }
+        node = node.right;
+      } else {
+        if (node.left === null) {
+          node.left = new Node(value);
+          return;
+        }
+        node = node.left;
+      }
+    }
+  }
+
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
