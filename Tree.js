@@ -23,6 +23,22 @@ export default class Tree {
     return root;
   }
 
+  includes(value) {
+    let node = this.root;
+
+    while (node !== null) {
+      if (node.data === value) {
+        return true;
+      }
+      if (value > node.data) {
+        node = node.right;
+      } else {
+        node = node.left;
+      }
+    }
+    return false;
+  }
+
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
