@@ -68,6 +68,44 @@ export default class Tree {
     }
   }
 
+  deleteItem(value) {
+    let currNode = this.root;
+    let prevNode = null;
+
+    while (currNode && currNode.data !== value) {
+      prevNode = currNode;
+      currNode = value < currNode.data ? currNode.left : currNode.right;
+    }
+
+    if (!currNode) return;
+
+    // node has two children
+    if (currNode.left && currNode.right) {
+      let successorParent = currNode;
+      let successor = currNode.right;
+
+      while (successor.left) {
+        successorParent = successor;
+        successor = successor.left;
+      }
+
+      currNode.data = successor.data;
+      currNode = successor;
+      prevNode = successorParent;
+    }
+
+    // node has at most one child
+    const child = currNode.left ?? currNode.right;
+
+    if (!prevNode) {
+      this.root = child;
+    } else if (prevNode.left === currNode) {
+      prevNode.left = child;
+    } else {
+      prevNode.right = child;
+    }
+  }
+
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
@@ -86,6 +124,3 @@ class Node {
     this.right = right;
   }
 }
-
-let tree = new Tree();
-console.log(tree);
