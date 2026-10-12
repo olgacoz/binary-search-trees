@@ -53,13 +53,13 @@ export default class Tree {
       }
 
       if (value > node.data) {
-        if (node.right === null) {
+        if (!node.right) {
           node.right = new Node(value);
           return;
         }
         node = node.right;
       } else {
-        if (node.left === null) {
+        if (!node.left) {
           node.left = new Node(value);
           return;
         }
@@ -86,3 +86,6 @@ class Node {
     this.right = right;
   }
 }
+
+let tree = new Tree();
+console.log(tree);
