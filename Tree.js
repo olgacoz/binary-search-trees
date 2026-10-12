@@ -79,7 +79,7 @@ export default class Tree {
 
     if (!currNode) return;
 
-    // node has two children
+    // if the node has two children, find its in-order successor.
     if (currNode.left && currNode.right) {
       let successorParent = currNode;
       let successor = currNode.right;
@@ -94,9 +94,11 @@ export default class Tree {
       prevNode = successorParent;
     }
 
-    // node has at most one child
+    // the node has at most one child because it either had at most one originally,
+    // or it is the successor, which has no left child.
     const child = currNode.left ?? currNode.right;
 
+    // connect its child to its parent to remove it.
     if (!prevNode) {
       this.root = child;
     } else if (prevNode.left === currNode) {
