@@ -181,6 +181,22 @@ export default class Tree {
     return 1 + Math.max(leftHeight, rightHeight);
   }
 
+  depth(value) {
+    let node = this.root;
+    let depth = 0;
+
+    while (node) {
+      if (node.data === value) {
+        return depth;
+      }
+
+      node = value < node.data ? node.left : node.right;
+      depth++;
+    }
+
+    return;
+  }
+
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
