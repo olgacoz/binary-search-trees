@@ -157,6 +157,30 @@ export default class Tree {
     callback(node.data);
   }
 
+  height(value) {
+    let node = this.root;
+
+    while (node) {
+      if (node.data === value) {
+        return this.#getHeight(node);
+      }
+
+      node = value < node.data ? node.left : node.right;
+    }
+
+    return;
+  }
+
+  #getHeight(node) {
+    if (!node) {
+      return -1;
+    }
+    const leftHeight = this.#getHeight(node.left);
+    const rightHeight = this.#getHeight(node.right);
+
+    return 1 + Math.max(leftHeight, rightHeight);
+  }
+
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
