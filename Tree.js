@@ -139,6 +139,24 @@ export default class Tree {
     this.preOrderForEach(callback, node.right);
   }
 
+  inOrderForEach(callback, node = this.root) {
+    if (!node) {
+      return;
+    }
+    this.inOrderForEach(callback, node.left);
+    callback(node.data);
+    this.inOrderForEach(callback, node.right);
+  }
+
+  postOrderForEach(callback, node = this.root) {
+    if (!node) {
+      return;
+    }
+    this.postOrderForEach(callback, node.left);
+    this.postOrderForEach(callback, node.right);
+    callback(node.data);
+  }
+
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
