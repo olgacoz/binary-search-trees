@@ -216,6 +216,16 @@ export default class Tree {
     return this.#checkBalance(node.left) && this.#checkBalance(node.right);
   }
 
+  rebalance() {
+    if (this.isBalanced()) {
+      return;
+    }
+    const arr = [];
+    this.inOrderForEach((value) => arr.push(value));
+
+    this.root = this.#buildTree(arr);
+  }
+
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
