@@ -108,6 +108,28 @@ export default class Tree {
     }
   }
 
+  levelOrderForEach(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("provided argument is not a function");
+    }
+    if (!this.root) {
+      return;
+    }
+
+    const queue = [this.root];
+    while (queue.length > 0) {
+      const node = queue.shift();
+      callback(node.data);
+
+      if (node.left) {
+        queue.push(node.left);
+      }
+      if (node.right) {
+        queue.push(node.right);
+      }
+    }
+  }
+
   prettyPrint(node = this.root, prefix = "", isLeft = true) {
     if (node === null || node === undefined) {
       return;
